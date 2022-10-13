@@ -19,7 +19,7 @@ pipeline {
     stage('Build') {
       steps {
         script {
-          app = docker.build("docker_build")
+          app = docker.build registry + ":$BUILD_NUMBER"
         }
       }
     }
