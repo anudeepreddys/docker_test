@@ -28,14 +28,12 @@ pipeline {
                  echo 'Empty'
             }
         }
-        stage('Push Image') {
-            steps{
-                script {
-                    docker.withRegistry('', 'docker-hub-credentials') {
-                        app.push()
-          }
-        }
-      }
+        stage('Push image') {
+	        steps {
+		        withDockerRegistry([ credentialsId: "docker-hub-credentials", url: "https://hub.docker.com/repository/docker/anudeepreddys/docker_build" ]) {
+		        dockerImage.push()
+		    }
+	    }
+    }
     } 
     }
-}
