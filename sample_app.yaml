@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sample_app-deployment
+  labels:
+    app: sample_app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sample_app
+  template:
+    metadata:
+      labels:
+        app: sample_app
+    spec:
+      containers:
+      - name: sample_app
+        image: anudeepreddys/docker_build:latest
+        ports:
+        - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sample_app-service
+spec:
+  selector:
+    app: sample_app
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000
