@@ -1,4 +1,9 @@
 pipeline {
+    environment { 
+        registry = "anudeepreddys/docker_build" 
+        registryCredential = 'docker-hub-credentials' 
+        app = '' 
+    }
     agent any
     options {
         skipStagesAfterUnstable()
@@ -27,7 +32,7 @@ pipeline {
         stage('Push Image') {
             steps{
                 script {
-                    docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
+                    docker.withRegistry('', 'registryCredential') {
                         app.push()
           }
         }
