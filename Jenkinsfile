@@ -30,8 +30,8 @@ pipeline {
         }
         stage('Push image') {
 	        steps {
-		        withDockerRegistry([ credentialsId: "docker-hub-credentials", url: "https://hub.docker.com/repository/docker/anudeepreddys/docker_build" ]) {
-		        dockerImage.push()
+		withDockerRegistry([ credentialsId: "docker-hub-credentials", url: "https://hub.docker.com/repository/docker/anudeepreddys/docker_build" ]) {
+		dockerImage.push()
 		    }
 	    }
     }
