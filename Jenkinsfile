@@ -40,7 +40,7 @@ pipeline {
     stage('Deploy to DOcker') {
       steps {
         sh "docker login -u anudeepreddys -p dckr_pat_Rakxneo2JbqnrvkvfbVkCxvNwXk"
-        sh "docker run -p 3000:3000 anudeepreddys/docker_build:33"
+        sh "docker run -p 3000:3000 anudeepreddys/docker_build:$BUILD_NUMBER"
       }
     }
   }
