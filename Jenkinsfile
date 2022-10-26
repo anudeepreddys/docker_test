@@ -1,7 +1,7 @@
 pipeline {
   environment {
     registry = "anudeepreddys/docker_build"
-    registryCredential = 'docker-hub-credentials'
+    registryCredential = 'docker_hub'
     app = ''
   }
   agent any
@@ -37,10 +37,9 @@ pipeline {
         }
       }
     }
-    stage('Deploy to DOcker') {
+    stage('Deploy to k8s') {
       steps {
-        sh "docker login -u anudeepreddys -p dckr_pat_Rakxneo2JbqnrvkvfbVkCxvNwXk"
-        sh "docker run -d -p 3000:3000 anudeepreddys/docker_build:$BUILD_NUMBER"
+        kubernetesDeploy configs: 'sample_app.yaml', kubeConfig: [path: ''], kubeconfigId: 'k8s', secretName: '', ssh: [sshCredentialsId: '*', sshServer: ''], textCredentials: [certificateAuthorityData: '', clientCertificateData: '', clientKeyData: '', serverUrl: 'https://']
       }
     }
   }
